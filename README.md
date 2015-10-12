@@ -16,7 +16,7 @@ Usage:
 copy the embedded.mobileprovision to the working directory
 copy the file.ipa to the working directory
 
-run: resigner <file.api> 
+run: resigner \<file.api\> 
 
 What to expect:
 -The application should extract the ipa to the Payload directory.
