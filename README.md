@@ -15,6 +15,7 @@ Apple developer account
 Usage: 
 copy the embedded.mobileprovision to the working directory
 copy the file.ipa to the working directory
+
 run: resigner <file.api> 
 
 What to expect:
