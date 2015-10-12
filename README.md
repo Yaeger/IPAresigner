@@ -3,14 +3,14 @@ Wrapper for generating entitlements.xml file and resigning an IPA
 
 This application wraps around the following commands to quickly resign IPA files.
 
-security cms -D -i Payload/*.app/embedded.mobileprovision<br>
-security find-identity -pcodesigning -v<br>
-codesign --force -vvvv --sign <unique certificate ID> --entitlements ./new-entitlements.xml ./Payload/*.app<br>
+  - security cms -D -i Payload/*.app/embedded.mobileprovision<br>
+  - security find-identity -pcodesigning -v<br>
+  - codesign --force -vvvv --sign <unique certificate ID> --entitlements ./new-entitlements.xml ./Payload/*.app<br>
 
 Dependancies:
-Apple developer account
-  - Installed signing certificate
-  - Associated embedded.mobileprovision configured to include the target device ID
+  - Apple developer account
+  -   - Installed signing certificate
+  -   - Associated embedded.mobileprovision configured to include the target device ID
 
 Usage: <br>
 copy the embedded.mobileprovision to the working directory<br>
