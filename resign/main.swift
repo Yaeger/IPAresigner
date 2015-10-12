@@ -64,7 +64,7 @@ var wasIPAFileSpecified: YesNo = .Undecided
 var args = Process.arguments
 print("Checking for IPA file specified on the command line")
 // **************************** Test code REMOVE next line ****************************
-args.append("my.ipa")
+//args.append("my.ipa")
 
 
 var ipaFile: NSString = ""
@@ -285,7 +285,7 @@ commandOutput = executeCommand("/usr/local/bin/plistbuddy", args: ["-x", "-c", "
 if let entitlements = commandOutput {
     newEntitlements += entitlements as String
     newEntitlements += "\u{000A}"
-    print("-- New Entitlements are \"\(newEntitlements)\" ")
+    //print("-- New Entitlements are \"\(newEntitlements)\" ")
 }  else {
     print("ERROR MSG: Could not extract Entitlements from \(tempPlistFile)")
     exit(1)
