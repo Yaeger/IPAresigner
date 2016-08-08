@@ -1,6 +1,6 @@
 //
 //  main.swift
-//  resign
+//  resign version 0.1
 //
 //  Created by Aaron Yaeger on 10/4/15.
 //  Copyright © 2015 Aaron Yaeger. All rights reserved.
@@ -11,7 +11,7 @@ import Foundation
 var commandOutput: NSString?
 var certificates: [NSString]
 
-print("Debug MSG:\(Process.arguments[0])")
+// print("Debug MSG:\(Process.arguments[0])")
 
 // Welcome splash message
 print("Hello, Welcome to the NetSPI iOS resigner!")
