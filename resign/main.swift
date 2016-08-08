@@ -48,7 +48,7 @@ if (!NSFileManager.defaultManager().fileExistsAtPath(tempPlistFile)){
 // Use plistbuddy to extract Entitlements:application-identifier from temp.plist.
 // cmd: plistbuddy -c "Print Entitlements:application-identifier" ./tmp.plist
 
-let applicationIdentifier = executeCommand("/usr/local/bin/plistbuddy", args: ["-c", "Print Entitlements:application-identifier", tempPlistFile])
+let applicationIdentifier = executeCommand("/usr/libexec/PlistBuddy", args: ["-c", "Print Entitlements:application-identifier", tempPlistFile])
 print("-- Extracting Entitlements:application-identifier from \(tempPlistFile)")
 if let appID = applicationIdentifier{
     print("-- Entitlements:application-identifier is \"\(appID)\" ")
@@ -72,7 +72,7 @@ if args.count < 2 {
     // No IPA file specified checking for a single IPA in the current working directory
     print("- No IPA file was specified")
     print("- Checking for a single IPA file in the directory")
-    let ipaFileLsResults: NSString? = executeCommand("/usr/bin/ls", args: ["*.ipa"])
+    let ipaFileLsResults: NSString? = executeCommand("/bin/ls", args: ["*.ipa"])
     if let ipaFilesConcatinated = ipaFileLsResults {
         let ipaFiles: [NSString?] = ipaFilesConcatinated.componentsSeparatedByString(" ")
         if ipaFiles.count == 1 {
@@ -249,14 +249,14 @@ if let wildCardCheckValue = wildCardCheck {
         var newApplicationIdentifierNSArray: NSArray = newApplicationIdentifierArray
         var newApplicationIdentifier = newApplicationIdentifierNSArray.componentsJoinedByString(".")
         print("- Chaging the current CFBundleIdentifier \"\(startingBundleID)\" with \"\(newApplicationIdentifier)\"")
-        commandOutput = executeCommand("/usr/local/bin/plistbuddy", args: ["-c", "Set CFBundleIdentifier \(newApplicationIdentifier)", infoFilePath])
+        commandOutput = executeCommand("/usr/libexec/PlistBuddy", args: ["-c", "Set CFBundleIdentifier \(newApplicationIdentifier)", infoFilePath])
         getCFBundleIdentifier(infoFilePath)
     } else {
         print("- embedded.mobileprovision does not specify a wildcard application ID")
         print("- Updating Info.plist with \(applicationIdentifier!)")
-        commandOutput = executeCommand("/usr/local/bin/plistbuddy", args: ["-c", "Set CFBundleIdentifier \(applicationIdentifier!)", infoFilePath])
+        commandOutput = executeCommand("/usr/libexec/PlistBuddy", args: ["-c", "Set CFBundleIdentifier \(applicationIdentifier!)", infoFilePath])
     }
-    commandOutput = executeCommand("/usr/local/bin/plistbuddy", args: ["-c", "Print CFBundleIdentifier", infoFilePath])
+    commandOutput = executeCommand("/usr/libexec/PlistBuddy", args: ["-c", "Print CFBundleIdentifier", infoFilePath])
     
 } else {
     print("ERROR MSG: Can't parse applicationIdentifier \"\(applicationIdentifier)\"")
@@ -280,7 +280,7 @@ if NSFileManager.defaultManager().fileExistsAtPath(codeSignaturePath) {
 // Create entitlements.xml
 
 var newEntitlements: String = "\u{000A}"
-commandOutput = executeCommand("/usr/local/bin/plistbuddy", args: ["-x", "-c", "Print Entitlements", tempPlistFile])
+commandOutput = executeCommand("/usr/libexec/PlistBuddy", args: ["-x", "-c", "Print Entitlements", tempPlistFile])
 
 if let entitlements = commandOutput {
     newEntitlements += entitlements as String
@@ -350,7 +350,7 @@ if certCount != 0 {
         certificateRecord = certificates[(signingCertIdx - 1)].componentsSeparatedByCharactersInSet(whiteSpaceChar)
         var teamIDField = certificateRecord.last
         if let str = teamIDField {
-            var teamID: NSString? = str.substringWithRange(Range<String.Index>(start: str.startIndex.advancedBy(1), end: str.endIndex.advancedBy(-2)))
+            var teamID: NSString? = str.substringWithRange(str.startIndex.advancedBy(1)..<str.endIndex.advancedBy(-2))
             if let ID = teamID {
                 print("TeamID: \(ID)")
                 appleTeamID = ID
